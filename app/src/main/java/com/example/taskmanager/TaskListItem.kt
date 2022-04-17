@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -31,9 +32,9 @@ fun TaskListItem(title: String, description: String, urgency: Urgency, donePerce
                     .height(100.dp)
                     .background(
                         when (urgency) {
-                            Urgency.LOW -> Color.Blue
-                            Urgency.MEDIUM -> Color.Yellow
-                            Urgency.HIGH -> Color.Red
+                            Urgency.LOW -> colorResource(id = R.color.urgency_low)
+                            Urgency.MEDIUM -> colorResource(id = R.color.urgency_medium)
+                            Urgency.HIGH -> colorResource(id = R.color.urgency_high)
                         }
                     )
             ) {}
