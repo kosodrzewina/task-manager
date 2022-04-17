@@ -7,9 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -29,7 +27,7 @@ fun TaskListItem(title: String, description: String, urgency: Urgency, donePerce
             Box(
                 modifier = Modifier
                     .width(16.dp)
-                    .height(100.dp)
+                    .height(112.dp)
                     .background(
                         when (urgency) {
                             Urgency.LOW -> colorResource(id = R.color.urgency_low)
@@ -44,7 +42,12 @@ fun TaskListItem(title: String, description: String, urgency: Urgency, donePerce
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Left,
-                    modifier = Modifier.padding(all = 16.dp)
+                    modifier = Modifier.padding(
+                        start = 16.dp,
+                        top = 16.dp,
+                        end = 16.dp,
+                        bottom = 8.dp
+                    )
                 )
                 Text(
                     text = description,
@@ -54,21 +57,10 @@ fun TaskListItem(title: String, description: String, urgency: Urgency, donePerce
                     modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, end = 16.dp)
                 )
             }
-            Column(
-                modifier = Modifier
-                    .fillMaxSize(),
-//                    .background(Color.Yellow),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-//                Text(text = "text")
-                PieChart(
-                    donePercentage = donePercentage, 200f, modifier = Modifier
-                        .fillMaxSize()
-//                        .background(Color.Yellow)
-                        .padding(16.dp)
-//                        .align(alignment = Alignment.End)
-                )
-            }
+            Box(modifier = Modifier.weight(1f))
+            PieChart(
+                donePercentage = donePercentage, modifier = Modifier.padding(16.dp)
+            )
         }
     }
 }
