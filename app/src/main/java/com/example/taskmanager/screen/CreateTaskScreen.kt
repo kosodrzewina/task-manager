@@ -20,10 +20,22 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavController
+import com.example.taskmanager.Task
+import com.example.taskmanager.Tasks
 import com.example.taskmanager.Urgency
 
 @Composable
 fun CreateTaskScreen(navController: NavController) {
+    var urgencyValue by remember {
+        mutableStateOf(Urgency.LOW)
+    }
+    var titleValue by remember {
+        mutableStateOf("")
+    }
+    var descriptionValue by remember {
+        mutableStateOf("")
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -36,6 +48,21 @@ fun CreateTaskScreen(navController: NavController) {
                             contentDescription = "Back"
                         )
                     }
+                },
+                actions = {
+                    TextButton(onClick = {
+                        Tasks.tasks.add(
+                            Task(
+                                title = titleValue,
+                                description = descriptionValue,
+                                urgency = urgencyValue,
+                                donePercentage = 0f
+                            )
+                        )
+                        navController.popBackStack()
+                    }) {
+                        Text(text = "SAVE")
+                    }
                 }
             )
         },
@@ -44,16 +71,6 @@ fun CreateTaskScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize(),
         ) {
-            var urgencyValue by remember {
-                mutableStateOf(Urgency.LOW)
-            }
-            var titleValue by remember {
-                mutableStateOf("")
-            }
-            var descriptionValue by remember {
-                mutableStateOf("")
-            }
-
             var expanded by remember {
                 mutableStateOf(false)
             }
