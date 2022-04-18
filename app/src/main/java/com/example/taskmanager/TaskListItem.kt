@@ -9,10 +9,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+
+private val Float.percentage get() = (this * 100).toInt().toString() + "%"
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -53,7 +56,14 @@ fun TaskListItem(title: String, description: String, urgency: Urgency, donePerce
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Thin,
                     textAlign = TextAlign.Left,
-                    modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, end = 16.dp)
+                    modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, end = 16.dp)
+                )
+                Text(
+                    text = donePercentage.percentage,
+                    fontSize = 14.sp,
+                    fontStyle = FontStyle.Italic,
+                    textAlign = TextAlign.Left,
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp)
                 )
             }
             Box(modifier = Modifier.weight(1f))
