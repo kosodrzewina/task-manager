@@ -12,7 +12,7 @@ fun NavGraph(navHostController: NavHostController) {
             HomeScreen(navController = navHostController)
         }
         composable(route = Screen.CreateTask.route) {
-            CreateTaskScreen()
+            CreateTaskScreen(navController = navHostController)
         }
     }
 }
