@@ -12,6 +12,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -38,7 +39,7 @@ fun TaskListItem(title: String, description: String, urgency: Urgency, donePerce
                         }
                     )
             ) {}
-            Column {
+            Column(modifier = Modifier.weight(weight = 100f)) {
                 Text(
                     text = title,
                     fontSize = 24.sp,
@@ -52,21 +53,14 @@ fun TaskListItem(title: String, description: String, urgency: Urgency, donePerce
                     )
                 )
                 Text(
-                    text = description,
+                    text = "${donePercentage.percentage} · $description",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Thin,
                     textAlign = TextAlign.Left,
                     modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, end = 16.dp)
                 )
-                Text(
-                    text = donePercentage.percentage,
-                    fontSize = 14.sp,
-                    fontStyle = FontStyle.Italic,
-                    textAlign = TextAlign.Left,
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp)
-                )
             }
-            Box(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(1f))
             PieChart(
                 donePercentage = donePercentage, modifier = Modifier.padding(16.dp)
             )

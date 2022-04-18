@@ -1,5 +1,6 @@
 package com.example.taskmanager
 
+import android.content.res.Resources
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -36,7 +37,7 @@ class MainActivity : ComponentActivity() {
             )
         )
         setContent {
-            TaskManagerTheme {
+            TaskManagerTheme(darkTheme = false) {
                 navHostController = rememberNavController()
 
                 NavGraph(navHostController = navHostController)
