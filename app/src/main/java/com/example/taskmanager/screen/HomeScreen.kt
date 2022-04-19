@@ -22,6 +22,6 @@ fun HomeScreen(navController: NavController) {
                 }
             )
         }) {
-        TaskList(Tasks.tasks)
+        TaskList(navController = navController, Tasks.tasks)
     }
 }
