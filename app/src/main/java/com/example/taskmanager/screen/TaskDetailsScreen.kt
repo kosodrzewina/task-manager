@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.taskmanager.R
 import com.example.taskmanager.Task
+import com.example.taskmanager.Tasks
 import com.example.taskmanager.Urgency
 
 @Composable
@@ -44,6 +46,12 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
                 actions = {
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(imageVector = Icons.Default.Edit, contentDescription = null)
+                    }
+                    IconButton(onClick = {
+                        Tasks.tasks.remove(task)
+                        navController.popBackStack()
+                    }) {
+                        Icon(imageVector = Icons.Default.Delete, contentDescription = null)
                     }
                 }
             )

@@ -6,7 +6,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.taskmanager.Tasks
+import com.example.taskmanager.Task
+import com.google.gson.Gson
 
 @Composable
 fun NavGraph(navHostController: NavHostController) {
@@ -18,17 +19,15 @@ fun NavGraph(navHostController: NavHostController) {
             CreateTaskScreen(navController = navHostController)
         }
         composable(
-            route = Screen.TaskDetailScreen.route + "/{taskHash}",
-            arguments = listOf(navArgument("taskHash") {
-                type = NavType.IntType
+            route = Screen.TaskDetailScreen.route + "/{taskJson}",
+            arguments = listOf(navArgument("taskJson") {
+                type = NavType.StringType
                 nullable = false
             })
         ) { entry ->
             TaskDetailsScreen(
                 navController = navHostController,
-                task = Tasks.tasks.first { task ->
-                    task.hashCode() == entry.arguments?.getInt("taskHash")
-                }
+                task = Gson().fromJson(entry.arguments?.getString("taskJson"), Task::class.java)
             )
         }
     }

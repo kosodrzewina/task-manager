@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.taskmanager.screen.Screen
+import com.google.gson.Gson
 
 private val Float.percentage get() = (this * 100).toInt().toString() + "%"
 
@@ -32,9 +33,7 @@ fun TaskListItem(navController: NavController, task: Task) {
         elevation = 8.dp,
         onClick = {
             navController.navigate(
-                Screen.TaskDetailScreen.routeWithArgs(
-                    task.hashCode().toString()
-                )
+                Screen.TaskDetailScreen.routeWithArgs(Gson().toJson(task))
             )
         }
     ) {
