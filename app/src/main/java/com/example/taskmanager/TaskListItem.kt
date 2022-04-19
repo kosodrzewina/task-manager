@@ -21,6 +21,12 @@ private val Float.percentage get() = (this * 100).toInt().toString() + "%"
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TaskListItem(navController: NavController, task: Task) {
+    val urgencyColor = when (task.urgency) {
+        Urgency.LOW -> colorResource(id = R.color.urgency_low)
+        Urgency.MEDIUM -> colorResource(id = R.color.urgency_medium)
+        Urgency.HIGH -> colorResource(id = R.color.urgency_high)
+    }
+
     Card(
         shape = RoundedCornerShape(16.dp),
         elevation = 8.dp,
@@ -37,13 +43,7 @@ fun TaskListItem(navController: NavController, task: Task) {
                 modifier = Modifier
                     .width(16.dp)
                     .height(112.dp)
-                    .background(
-                        when (task.urgency) {
-                            Urgency.LOW -> colorResource(id = R.color.urgency_low)
-                            Urgency.MEDIUM -> colorResource(id = R.color.urgency_medium)
-                            Urgency.HIGH -> colorResource(id = R.color.urgency_high)
-                        }
-                    )
+                    .background(urgencyColor)
             ) {}
             Column(modifier = Modifier.weight(weight = 100f)) {
                 Text(
