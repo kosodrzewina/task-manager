@@ -1,5 +1,7 @@
 package com.example.taskmanager
 
+import java.time.LocalDate
+
 object Tasks {
     val tasks = mutableListOf<Task>()
 
@@ -10,6 +12,7 @@ object Tasks {
                     title = "Task no. 1",
                     description = "This is the first task on the list",
                     urgency = Urgency.LOW,
+                    deadline = LocalDate.of(2022, 5, 5),
                     subtasks = listOf(
                         Pair("subtask1", false),
                         Pair("subtask2", true),
@@ -20,12 +23,14 @@ object Tasks {
                     title = "An important task",
                     description = "This is my next task",
                     urgency = Urgency.HIGH,
+                    deadline = LocalDate.of(2023, 5, 5),
                     subtasks = listOf(Pair("subtask1", false))
                 ),
                 Task(
                     title = "A regular task",
                     description = "This is a regular task",
                     urgency = Urgency.MEDIUM,
+                    deadline = LocalDate.of(2022, 7, 5),
                     subtasks = listOf(Pair("subtask1", false))
                 )
             )

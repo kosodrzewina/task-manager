@@ -6,11 +6,13 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.taskmanager.LocalDateTypeAdapter
 import com.example.taskmanager.Task
 import com.example.taskmanager.screen.CreateTaskScreen
 import com.example.taskmanager.screen.HomeScreen
 import com.example.taskmanager.screen.TaskDetailsScreen
-import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import java.time.LocalDate
 
 @Composable
 fun NavGraph(navHostController: NavHostController) {
@@ -28,9 +30,13 @@ fun NavGraph(navHostController: NavHostController) {
                 nullable = false
             })
         ) { entry ->
+            val gson =
+                GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter())
+                    .create()
+
             TaskDetailsScreen(
                 navController = navHostController,
-                task = Gson().fromJson(entry.arguments?.getString("taskJson"), Task::class.java)
+                task = gson.fromJson(entry.arguments?.getString("taskJson"), Task::class.java)
             )
         }
     }

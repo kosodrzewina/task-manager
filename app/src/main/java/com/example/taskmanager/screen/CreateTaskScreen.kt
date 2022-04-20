@@ -28,6 +28,7 @@ import androidx.navigation.NavController
 import com.example.taskmanager.Task
 import com.example.taskmanager.Tasks
 import com.example.taskmanager.Urgency
+import java.time.LocalDate
 
 @Composable
 fun CreateTaskScreen(navController: NavController) {
@@ -69,6 +70,7 @@ fun CreateTaskScreen(navController: NavController) {
                                 title = titleValue,
                                 description = descriptionValue,
                                 urgency = urgencyValue,
+                                deadline = LocalDate.now(),
                                 subtasks = subtasks.map { Pair(it, false) }
                             )
                         )

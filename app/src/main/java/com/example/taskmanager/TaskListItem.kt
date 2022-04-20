@@ -15,7 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.taskmanager.navigation.Screen
-import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import java.time.LocalDate
 
 private val Float.percentage get() = (this * 100).toInt().toString() + "%"
 
@@ -28,12 +29,15 @@ fun TaskListItem(navController: NavController, task: Task) {
         Urgency.HIGH -> colorResource(id = R.color.urgency_high)
     }
 
+    val gson =
+        GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter()).create()
+
     Card(
         shape = RoundedCornerShape(16.dp),
         elevation = 8.dp,
         onClick = {
             navController.navigate(
-                Screen.TaskDetailScreen.routeWithArgs(Gson().toJson(task))
+                Screen.TaskDetailScreen.routeWithArgs(gson.toJson(task))
             )
         }
     ) {
