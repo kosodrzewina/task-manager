@@ -28,6 +28,9 @@ import androidx.navigation.NavController
 import com.example.taskmanager.Task
 import com.example.taskmanager.Tasks
 import com.example.taskmanager.Urgency
+import com.vanpra.composematerialdialogs.MaterialDialog
+import com.vanpra.composematerialdialogs.datetime.date.datepicker
+import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
 
 @Composable
@@ -45,9 +48,25 @@ fun CreateTaskScreen(navController: NavController) {
     val subtasks by remember {
         mutableStateOf(mutableListOf<String>())
     }
+    var deadlineValue by remember {
+        mutableStateOf(LocalDate.now())
+    }
 
     var subtaskValue by remember {
         mutableStateOf("")
+    }
+    val dialogState = rememberMaterialDialogState()
+
+    MaterialDialog(
+        dialogState = dialogState,
+        buttons = {
+            positiveButton("OK")
+            negativeButton("CANCEL")
+        }
+    ) {
+        datepicker {
+            deadlineValue = it
+        }
     }
 
     Scaffold(
@@ -70,7 +89,7 @@ fun CreateTaskScreen(navController: NavController) {
                                 title = titleValue,
                                 description = descriptionValue,
                                 urgency = urgencyValue,
-                                deadline = LocalDate.now(),
+                                deadline = deadlineValue,
                                 subtasks = subtasks.map { Pair(it, false) }
                             )
                         )
@@ -141,6 +160,21 @@ fun CreateTaskScreen(navController: NavController) {
                         }
                     }
                 }
+            }
+            Row(modifier = Modifier.padding(top = 16.dp)) {
+                Text(
+                    text = "Deadline:",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 24.sp,
+                    modifier = Modifier.padding(end = 16.dp)
+                )
+                Text(
+                    text = deadlineValue.toString(),
+                    fontSize = 24.sp,
+                    modifier = Modifier.clickable {
+                        dialogState.show()
+                    }
+                )
             }
             OutlinedTextField(
                 value = titleValue,
