@@ -4,5 +4,6 @@ data class Task(
     val title: String,
     val description: String,
     val urgency: Urgency,
-    val donePercentage: Float
+    val donePercentage: Float,
+    val subtasks: List<Pair<String, Boolean>>
 )

@@ -1,10 +1,7 @@
 package com.example.taskmanager.screen
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -17,9 +14,12 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavController
+import com.example.taskmanager.SubtaskList
 import com.example.taskmanager.Task
 import com.example.taskmanager.Tasks
 import com.example.taskmanager.Urgency
@@ -56,7 +56,8 @@ fun CreateTaskScreen(navController: NavController) {
                                 title = titleValue,
                                 description = descriptionValue,
                                 urgency = urgencyValue,
-                                donePercentage = 0f
+                                donePercentage = 0f,
+                                listOf()
                             )
                         )
                         navController.popBackStack()
@@ -149,6 +150,18 @@ fun CreateTaskScreen(navController: NavController) {
                     descriptionValue = it
                 }
             )
+            Text(
+                text = "Subtasks",
+                fontWeight = FontWeight.Bold,
+                fontSize = 24.sp,
+                modifier = Modifier.padding(all = 16.dp)
+            )
+            SubtaskList(
+                modifier = Modifier
+                    .padding(start = 16.dp, end = 16.dp)
+                    .fillMaxWidth()
+            )
         }
     }
+
 }
