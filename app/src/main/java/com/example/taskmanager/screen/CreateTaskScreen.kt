@@ -281,7 +281,9 @@ fun CreateTaskScreen(navController: NavController) {
                     onClick = {
                         subtasks.add(subtaskValue.trim())
                         subtaskValue = ""
-                        println(subtasks)
+                        scope.launch {
+                            scrollState.animateScrollTo(value = Int.MAX_VALUE)
+                        }
                     },
                     modifier = Modifier.padding(top = 16.dp)
                 ) {
