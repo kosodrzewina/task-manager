@@ -1,4 +1,4 @@
-package com.example.taskmanager.screen
+package com.example.taskmanager.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -7,6 +7,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.taskmanager.Task
+import com.example.taskmanager.screen.CreateTaskScreen
+import com.example.taskmanager.screen.HomeScreen
+import com.example.taskmanager.screen.TaskDetailsScreen
 import com.google.gson.Gson
 
 @Composable

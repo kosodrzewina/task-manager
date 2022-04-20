@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.taskmanager.screen.NavGraph
+import com.example.taskmanager.navigation.NavGraph
 import com.example.taskmanager.ui.theme.TaskManagerTheme
 
 class MainActivity : ComponentActivity() {

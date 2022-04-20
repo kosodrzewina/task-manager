@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.taskmanager.screen.Screen
+import com.example.taskmanager.navigation.Screen
 import com.google.gson.Gson
 
 private val Float.percentage get() = (this * 100).toInt().toString() + "%"

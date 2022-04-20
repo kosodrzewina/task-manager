@@ -1,4 +1,4 @@
-package com.example.taskmanager.screen
+package com.example.taskmanager.navigation
 
 sealed class Screen(val route: String) {
     object Home : Screen(route = "home_screen")
