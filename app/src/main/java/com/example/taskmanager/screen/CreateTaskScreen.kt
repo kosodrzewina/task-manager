@@ -178,7 +178,9 @@ fun CreateTaskScreen(navController: NavController) {
             }
             OutlinedTextField(
                 value = titleValue,
-                modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp),
+                modifier = Modifier
+                    .padding(start = 16.dp, top = 16.dp, end = 16.dp)
+                    .fillMaxWidth(),
                 label = {
                     Text(
                         text = "Title"
@@ -190,7 +192,9 @@ fun CreateTaskScreen(navController: NavController) {
             )
             OutlinedTextField(
                 value = descriptionValue,
-                modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp),
+                modifier = Modifier
+                    .padding(start = 16.dp, top = 16.dp, end = 16.dp)
+                    .fillMaxWidth(),
                 label = {
                     Text(
                         text = "Description"
