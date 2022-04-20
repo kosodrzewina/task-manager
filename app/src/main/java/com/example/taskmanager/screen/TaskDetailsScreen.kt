@@ -111,11 +111,10 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
                 modifier = Modifier.padding(all = 16.dp)
             )
             task.subtasks.forEach {
-                Row {
+                Row(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp, end = 8.dp)) {
                     Checkbox(
                         checked = it.second,
                         onCheckedChange = {},
-                        modifier = Modifier.padding(start = 32.dp, end = 16.dp, bottom = 16.dp)
                     )
                     Text(
                         text = it.first,
@@ -124,7 +123,7 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
                             TextStyle(textDecoration = TextDecoration.LineThrough)
                         else
                             TextStyle.Default,
-                        modifier = Modifier.padding(end = 16.dp, bottom = 16.dp)
+                        modifier = Modifier.padding(top = 11.dp)
                     )
                 }
             }

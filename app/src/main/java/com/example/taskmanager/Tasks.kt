@@ -14,7 +14,7 @@ object Tasks {
                     urgency = Urgency.LOW,
                     deadline = LocalDate.of(2022, 5, 5),
                     subtasks = listOf(
-                        Pair("subtask1", false),
+                        Pair("Subtask1", false),
                         Pair("subtask2", true),
                         Pair("subtask3", false)
                     )
