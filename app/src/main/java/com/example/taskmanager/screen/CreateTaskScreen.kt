@@ -1,7 +1,10 @@
 package com.example.taskmanager.screen
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -26,6 +29,7 @@ import com.example.taskmanager.Urgency
 
 @Composable
 fun CreateTaskScreen(navController: NavController) {
+    val scrollState = rememberScrollState()
     var urgencyValue by remember {
         mutableStateOf(Urgency.LOW)
     }
@@ -70,7 +74,9 @@ fun CreateTaskScreen(navController: NavController) {
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState),
         ) {
             var expanded by remember {
                 mutableStateOf(false)
@@ -158,7 +164,7 @@ fun CreateTaskScreen(navController: NavController) {
             )
             SubtaskList(
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp)
+                    .padding(start = 16.dp, bottom = 16.dp, end = 16.dp)
                     .fillMaxWidth()
             )
         }
