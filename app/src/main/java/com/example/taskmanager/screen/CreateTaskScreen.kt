@@ -1,9 +1,10 @@
 package com.example.taskmanager.screen
 
+import android.view.KeyEvent
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -15,14 +16,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavController
-import com.example.taskmanager.SubtaskList
 import com.example.taskmanager.Task
 import com.example.taskmanager.Tasks
 import com.example.taskmanager.Urgency
@@ -37,6 +39,13 @@ fun CreateTaskScreen(navController: NavController) {
         mutableStateOf("")
     }
     var descriptionValue by remember {
+        mutableStateOf("")
+    }
+    val subtasks by remember {
+        mutableStateOf(mutableListOf<String>())
+    }
+
+    var subtaskValue by remember {
         mutableStateOf("")
     }
 
@@ -60,8 +69,7 @@ fun CreateTaskScreen(navController: NavController) {
                                 title = titleValue,
                                 description = descriptionValue,
                                 urgency = urgencyValue,
-                                donePercentage = 0f,
-                                listOf()
+                                subtasks = subtasks.map { Pair(it, false) }
                             )
                         )
                         navController.popBackStack()
@@ -162,12 +170,47 @@ fun CreateTaskScreen(navController: NavController) {
                 fontSize = 24.sp,
                 modifier = Modifier.padding(all = 16.dp)
             )
-            SubtaskList(
+            Column(
                 modifier = Modifier
-                    .padding(start = 16.dp, bottom = 16.dp, end = 16.dp)
                     .fillMaxWidth()
-            )
+                    .padding(start = 16.dp, end = 16.dp)
+            ) {
+                subtasks.forEach {
+                    TextField(
+                        value = it,
+                        onValueChange = {},
+                        enabled = false,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+                TextField(
+                    value = subtaskValue,
+                    onValueChange = { subtaskValue = it },
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    singleLine = true,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .onKeyEvent {
+                            if (it.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_ENTER) {
+                                subtasks.add(subtaskValue.trim())
+                                subtaskValue = ""
+                                true
+                            }
+
+                            false
+                        }
+                )
+                TextButton(
+                    onClick = {
+                        subtasks.add(subtaskValue.trim())
+                        subtaskValue = ""
+                        println(subtasks)
+                    },
+                    modifier = Modifier.padding(top = 16.dp)
+                ) {
+                    Text(text = "ADD")
+                }
+            }
         }
     }
-
 }
