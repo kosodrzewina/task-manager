@@ -31,11 +31,15 @@ import com.example.taskmanager.Urgency
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 @Composable
 fun CreateTaskScreen(navController: NavController) {
     val scrollState = rememberScrollState()
+    val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
+
     var urgencyValue by remember {
         mutableStateOf(Urgency.LOW)
     }
@@ -70,6 +74,7 @@ fun CreateTaskScreen(navController: NavController) {
     }
 
     Scaffold(
+        scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
                 title = { Text(text = "Create New Task") },
@@ -84,16 +89,48 @@ fun CreateTaskScreen(navController: NavController) {
                 },
                 actions = {
                     TextButton(onClick = {
-                        Tasks.tasks.add(
-                            Task(
-                                title = titleValue,
-                                description = descriptionValue,
-                                urgency = urgencyValue,
-                                deadline = deadlineValue,
-                                subtasks = subtasks.map { Pair(it, false) }
-                            )
-                        )
-                        navController.popBackStack()
+                        when {
+                            deadlineValue < LocalDate.now() -> {
+                                scope.launch {
+                                    scaffoldState.snackbarHostState.showSnackbar(
+                                        message = "Deadline cannot be in the past!"
+                                    )
+                                }
+                            }
+                            titleValue.isEmpty() -> {
+                                scope.launch {
+                                    scaffoldState.snackbarHostState.showSnackbar(
+                                        message = "Title cannot be empty!"
+                                    )
+                                }
+                            }
+                            descriptionValue.isEmpty() -> {
+                                scope.launch {
+                                    scaffoldState.snackbarHostState.showSnackbar(
+                                        message = "Description cannot be empty!"
+                                    )
+                                }
+                            }
+                            subtasks.size == 0 -> {
+                                scope.launch {
+                                    scaffoldState.snackbarHostState.showSnackbar(
+                                        message = "You have to add at least one subtask!"
+                                    )
+                                }
+                            }
+                            else -> {
+                                Tasks.tasks.add(
+                                    Task(
+                                        title = titleValue,
+                                        description = descriptionValue,
+                                        urgency = urgencyValue,
+                                        deadline = deadlineValue,
+                                        subtasks = subtasks.map { Pair(it, false) }
+                                    )
+                                )
+                                navController.popBackStack()
+                            }
+                        }
                     }) {
                         Text(text = "SAVE")
                     }
