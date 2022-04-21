@@ -7,7 +7,7 @@ data class Task(
     val description: String,
     val urgency: Urgency,
     val deadline: LocalDate,
-    val subtasks: List<Pair<String, Boolean>>
+    val subtasks: List<MutablePair<String, Boolean>>
 ) {
     val donePercentage: Float get() = subtasks.count { it.second }.toFloat() / subtasks.size
 }

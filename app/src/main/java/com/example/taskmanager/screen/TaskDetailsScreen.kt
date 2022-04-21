@@ -29,7 +29,7 @@ import com.example.taskmanager.Urgency
 import kotlinx.coroutines.launch
 
 @Composable
-fun TaskDetailsScreen(navController: NavController, task: Task) {
+fun TaskDetailsScreen(navController: NavController, task: Task, taskHash: Int) {
     val urgencyColor = when (task.urgency) {
         Urgency.LOW -> colorResource(id = R.color.urgency_low)
         Urgency.MEDIUM -> colorResource(id = R.color.urgency_medium)
@@ -69,7 +69,6 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
                     }
                     isOpenDialog = false
                     isDeleted = true
-//                    navController.popBackStack()
                 }) {
                     Text(text = "OK")
                 }
@@ -176,8 +175,13 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
                     Row(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp, end = 8.dp)) {
                         Checkbox(
                             checked = checkStates[index],
-                            onCheckedChange = {
-                                checkStates[index] = it
+                            onCheckedChange = { state ->
+                                checkStates[index] = state
+                                Tasks.tasks.forEach {
+                                    println(it.hashCode())
+                                }
+                                Tasks.tasks.first { it.hashCode() == taskHash }.subtasks[index].second =
+                                    state
                             }
                         )
                         Text(

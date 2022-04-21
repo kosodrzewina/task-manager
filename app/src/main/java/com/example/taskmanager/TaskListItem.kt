@@ -36,8 +36,9 @@ fun TaskListItem(navController: NavController, task: Task) {
         shape = RoundedCornerShape(16.dp),
         elevation = 8.dp,
         onClick = {
+            println("Passing this hash: ${task.hashCode()}")
             navController.navigate(
-                Screen.TaskDetailScreen.routeWithArgs(gson.toJson(task))
+                Screen.TaskDetailScreen.routeWithArgs(gson.toJson(task), task.hashCode().toString())
             )
         }
     ) {
