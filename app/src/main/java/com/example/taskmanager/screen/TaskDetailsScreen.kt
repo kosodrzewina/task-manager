@@ -46,6 +46,12 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
         mutableStateOf(false)
     }
 
+    val checkStates = remember {
+        mutableStateListOf<Boolean>().apply {
+            addAll(task.subtasks.map { it.second })
+        }
+    }
+
     if (isOpenDialog) {
         AlertDialog(
             onDismissRequest = { isOpenDialog = false },
@@ -166,16 +172,18 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(all = 16.dp)
                 )
-                task.subtasks.forEach {
+                task.subtasks.forEachIndexed { index, subtask ->
                     Row(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp, end = 8.dp)) {
                         Checkbox(
-                            checked = it.second,
-                            onCheckedChange = {},
+                            checked = checkStates[index],
+                            onCheckedChange = {
+                                checkStates[index] = it
+                            }
                         )
                         Text(
-                            text = it.first,
+                            text = subtask.first,
                             fontSize = 18.sp,
-                            style = if (it.second)
+                            style = if (checkStates[index])
                                 TextStyle(textDecoration = TextDecoration.LineThrough)
                             else
                                 TextStyle.Default,
