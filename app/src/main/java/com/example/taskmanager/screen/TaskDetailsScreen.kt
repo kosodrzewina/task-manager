@@ -1,7 +1,8 @@
 package com.example.taskmanager.screen
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
@@ -10,11 +11,9 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -22,10 +21,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.taskmanager.*
 import com.example.taskmanager.R
-import com.example.taskmanager.Task
-import com.example.taskmanager.Tasks
-import com.example.taskmanager.Urgency
 import kotlinx.coroutines.launch
 
 @Composable
@@ -107,22 +104,7 @@ fun TaskDetailsScreen(navController: NavController, task: Task, taskId: String) 
         }
     ) {
         if (isDeleted) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.looking_at_void),
-                    contentDescription = null
-                )
-                Text(
-                    text = "How empty...",
-                    modifier = Modifier.padding(all = 16.dp),
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+            EmptyView()
         } else {
             Column(modifier = Modifier.verticalScroll(scrollState)) {
                 Row {

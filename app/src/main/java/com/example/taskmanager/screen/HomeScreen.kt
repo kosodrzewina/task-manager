@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
+import com.example.taskmanager.EmptyView
 import com.example.taskmanager.TaskList
 import com.example.taskmanager.Tasks
 import com.example.taskmanager.navigation.Screen
@@ -23,6 +24,10 @@ fun HomeScreen(navController: NavController) {
                 }
             )
         }) {
-        TaskList(navController = navController, Tasks.tasks.sortedBy { it.deadline })
+        if (Tasks.tasks.isEmpty()) {
+            EmptyView()
+        } else {
+            TaskList(navController = navController, Tasks.tasks.sortedBy { it.deadline })
+        }
     }
 }
