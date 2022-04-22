@@ -24,14 +24,14 @@ fun NavGraph(navHostController: NavHostController) {
             CreateTaskScreen(navController = navHostController)
         }
         composable(
-            route = Screen.TaskDetailScreen.route + "/{taskJson}/{taskHash}",
+            route = Screen.TaskDetailScreen.route + "/{taskJson}/{taskId}",
             arguments = listOf(
                 navArgument("taskJson") {
                     type = NavType.StringType
                     nullable = false
                 },
-                navArgument("taskHash") {
-                    type = NavType.IntType
+                navArgument("taskId") {
+                    type = NavType.StringType
                     nullable = false
                 }
             )
@@ -40,11 +40,12 @@ fun NavGraph(navHostController: NavHostController) {
                 GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter())
                     .create()
 
-            entry.arguments?.let {
+            entry.arguments?.getString("taskId")?.let {
                 TaskDetailsScreen(
-                    navController = navHostController,
-                    task = gson.fromJson(entry.arguments?.getString("taskJson"), Task::class.java),
-                    taskHash = it.getInt("taskHash")
+                    navController = navHostController, task = gson.fromJson(
+                        entry.arguments?.getString("taskJson"), Task::class.java
+                    ),
+                    taskId = it
                 )
             }
         }

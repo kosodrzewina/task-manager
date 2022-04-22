@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavController
-import com.example.taskmanager.MutablePair
+import com.example.taskmanager.Subtask
 import com.example.taskmanager.Task
 import com.example.taskmanager.Tasks
 import com.example.taskmanager.Urgency
@@ -126,7 +126,7 @@ fun CreateTaskScreen(navController: NavController) {
                                         description = descriptionValue,
                                         urgency = urgencyValue,
                                         deadline = deadlineValue,
-                                        subtasks = subtasks.map { MutablePair(it, false) }
+                                        subtasks = subtasks.map { Subtask(it, false) }
                                     )
                                 )
                                 navController.popBackStack()

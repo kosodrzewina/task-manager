@@ -14,9 +14,9 @@ object Tasks {
                     urgency = Urgency.LOW,
                     deadline = LocalDate.of(2022, 5, 5),
                     subtasks = listOf(
-                        MutablePair("Subtask1", false),
-                        MutablePair("subtask2", true),
-                        MutablePair("subtask3", false)
+                        Subtask("Subtask1", false),
+                        Subtask("subtask2", true),
+                        Subtask("subtask3", false)
                     )
                 ),
                 Task(
@@ -24,14 +24,14 @@ object Tasks {
                     description = "This is my next task",
                     urgency = Urgency.HIGH,
                     deadline = LocalDate.of(2023, 5, 5),
-                    subtasks = listOf(MutablePair("subtask1", false))
+                    subtasks = listOf(Subtask("subtask1", false))
                 ),
                 Task(
                     title = "A regular task",
                     description = "This is a regular task",
                     urgency = Urgency.MEDIUM,
                     deadline = LocalDate.of(2022, 7, 5),
-                    subtasks = listOf(MutablePair("subtask1", false))
+                    subtasks = listOf(Subtask("subtask1", false))
                 )
             )
         )

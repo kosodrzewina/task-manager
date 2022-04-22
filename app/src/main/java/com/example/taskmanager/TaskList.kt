@@ -17,6 +17,5 @@ fun TaskList(navController: NavController, tasks: List<Task>) {
         items(items = tasks) {
             TaskListItem(navController = navController, task = it)
         }
-
     }
 }

@@ -29,7 +29,7 @@ import com.example.taskmanager.Urgency
 import kotlinx.coroutines.launch
 
 @Composable
-fun TaskDetailsScreen(navController: NavController, task: Task, taskHash: Int) {
+fun TaskDetailsScreen(navController: NavController, task: Task, taskId: String) {
     val urgencyColor = when (task.urgency) {
         Urgency.LOW -> colorResource(id = R.color.urgency_low)
         Urgency.MEDIUM -> colorResource(id = R.color.urgency_medium)
@@ -48,7 +48,7 @@ fun TaskDetailsScreen(navController: NavController, task: Task, taskHash: Int) {
 
     val checkStates = remember {
         mutableStateListOf<Boolean>().apply {
-            addAll(task.subtasks.map { it.second })
+            addAll(task.subtasks.map { it.isDone })
         }
     }
 
@@ -177,15 +177,11 @@ fun TaskDetailsScreen(navController: NavController, task: Task, taskHash: Int) {
                             checked = checkStates[index],
                             onCheckedChange = { state ->
                                 checkStates[index] = state
-                                Tasks.tasks.forEach {
-                                    println(it.hashCode())
-                                }
-                                Tasks.tasks.first { it.hashCode() == taskHash }.subtasks[index].second =
-                                    state
+                                Tasks.tasks.first { it.id == taskId }.subtasks[index].isDone = state
                             }
                         )
                         Text(
-                            text = subtask.first,
+                            text = subtask.name,
                             fontSize = 18.sp,
                             style = if (checkStates[index])
                                 TextStyle(textDecoration = TextDecoration.LineThrough)
