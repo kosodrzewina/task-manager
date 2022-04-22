@@ -50,31 +50,19 @@ fun TaskDetailsScreen(navController: NavController, task: Task, taskId: String) 
     }
 
     if (isOpenDialog) {
-        AlertDialog(
+        RemoveTaskAlertDialog(
             onDismissRequest = { isOpenDialog = false },
-            title = { Text(text = "Are you sure?", fontWeight = FontWeight.Bold) },
-            text = {
-                Text(text = "If you proceed, you will permanently delete this task.")
-            },
-            confirmButton = {
-                TextButton(onClick = {
-                    Tasks.tasks.remove(task)
-                    scope.launch {
-                        scaffoldState.snackbarHostState.showSnackbar(
-                            message = "Task has been successfully removed"
-                        )
-                    }
-                    isOpenDialog = false
-                    isDeleted = true
-                }) {
-                    Text(text = "OK")
+            onConfirmClick = {
+                Tasks.tasks.remove(task)
+                scope.launch {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = "Task has been successfully removed"
+                    )
                 }
+                isOpenDialog = false
+                isDeleted = true
             },
-            dismissButton = {
-                TextButton(onClick = { isOpenDialog = false }) {
-                    Text(text = "CANCEL")
-                }
-            },
+            onDismissClick = { isOpenDialog = false }
         )
     }
 
