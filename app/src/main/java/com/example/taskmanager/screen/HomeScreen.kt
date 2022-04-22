@@ -23,6 +23,6 @@ fun HomeScreen(navController: NavController) {
                 }
             )
         }) {
-        TaskList(navController = navController, Tasks.tasks)
+        TaskList(navController = navController, Tasks.tasks.sortedBy { it.deadline })
     }
 }
