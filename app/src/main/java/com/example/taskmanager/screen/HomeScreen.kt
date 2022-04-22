@@ -12,12 +12,14 @@ import java.time.LocalDate
 
 @Composable
 fun HomeScreen(navController: NavController) {
+    val scaffoldState = rememberScaffoldState()
     val gson =
         GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter())
             .create()
 
     Scaffold(
         topBar = { TopAppBar(title = { Text(text = "Task Manager") }) },
+        scaffoldState = scaffoldState,
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
@@ -43,7 +45,10 @@ fun HomeScreen(navController: NavController) {
         if (Tasks.tasks.isEmpty()) {
             EmptyView()
         } else {
-            TaskList(navController = navController, Tasks.tasks.sortedBy { it.deadline })
+            TaskList(
+                navController = navController,
+                scaffoldState = scaffoldState,
+                tasks = Tasks.tasks.sortedBy { it.deadline })
         }
     }
 }
