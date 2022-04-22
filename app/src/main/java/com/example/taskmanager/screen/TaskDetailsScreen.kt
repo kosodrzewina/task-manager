@@ -39,7 +39,7 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
     val scrollState = rememberScrollState()
-    var isOpenDialog by remember {
+    var isDialogOpen by remember {
         mutableStateOf(false)
     }
     var isDeleted by remember {
@@ -55,9 +55,9 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
     val gson =
         GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter()).create()
 
-    if (isOpenDialog) {
+    if (isDialogOpen) {
         RemoveTaskAlertDialog(
-            onDismissRequest = { isOpenDialog = false },
+            onDismissRequest = { isDialogOpen = false },
             onConfirmClick = {
                 Tasks.tasks.remove(task)
                 scope.launch {
@@ -65,10 +65,10 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
                         message = "Task has been successfully removed"
                     )
                 }
-                isOpenDialog = false
+                isDialogOpen = false
                 isDeleted = true
             },
-            onDismissClick = { isOpenDialog = false }
+            onDismissClick = { isDialogOpen = false }
         )
     }
 
@@ -94,7 +94,7 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
                     }) {
                         Icon(imageVector = Icons.Default.Edit, contentDescription = null)
                     }
-                    IconButton(onClick = { isOpenDialog = true }) {
+                    IconButton(onClick = { isDialogOpen = true }) {
                         Icon(imageVector = Icons.Default.Delete, contentDescription = null)
                     }
                 }
