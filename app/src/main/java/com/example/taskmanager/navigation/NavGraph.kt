@@ -49,26 +49,18 @@ fun NavGraph(navHostController: NavHostController) {
             )
         }
         composable(
-            route = Screen.TaskDetailScreen.route + "/{taskJson}/{taskId}",
+            route = Screen.TaskDetailsScreen.route + "/{taskJson}",
             arguments = listOf(
                 navArgument("taskJson") {
-                    type = NavType.StringType
-                    nullable = false
-                },
-                navArgument("taskId") {
                     type = NavType.StringType
                     nullable = false
                 }
             )
         ) { entry ->
-            entry.arguments?.getString("taskId")?.let {
-                TaskDetailsScreen(
-                    navController = navHostController, task = gson.fromJson(
-                        entry.arguments?.getString("taskJson"), Task::class.java
-                    ),
-                    taskId = it
-                )
-            }
+            TaskDetailsScreen(
+                navController = navHostController,
+                task = gson.fromJson(entry.arguments?.getString("taskJson"), Task::class.java)
+            )
         }
     }
 }

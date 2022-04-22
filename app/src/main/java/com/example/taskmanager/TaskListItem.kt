@@ -37,7 +37,7 @@ fun TaskListItem(navController: NavController, task: Task) {
         elevation = 8.dp,
         onClick = {
             navController.navigate(
-                Screen.TaskDetailScreen.routeWithArgs(gson.toJson(task), task.id)
+                Screen.TaskDetailsScreen.routeWithArgs(gson.toJson(task))
             )
         }
     ) {

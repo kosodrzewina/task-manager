@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 @Composable
-fun TaskDetailsScreen(navController: NavController, task: Task, taskId: String) {
+fun TaskDetailsScreen(navController: NavController, task: Task) {
     val urgencyColor = when (task.urgency) {
         Urgency.LOW -> colorResource(id = R.color.urgency_low)
         Urgency.MEDIUM -> colorResource(id = R.color.urgency_medium)
@@ -157,7 +157,8 @@ fun TaskDetailsScreen(navController: NavController, task: Task, taskId: String) 
                             checked = checkStates[index],
                             onCheckedChange = { state ->
                                 checkStates[index] = state
-                                Tasks.tasks.first { it.id == taskId }.subtasks[index].isDone = state
+                                Tasks.tasks.first { it.id == task.id }.subtasks[index].isDone =
+                                    state
                             }
                         )
                         Text(
