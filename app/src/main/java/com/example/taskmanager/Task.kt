@@ -4,11 +4,11 @@ import java.time.LocalDate
 import java.util.*
 
 data class Task(
-    val title: String,
-    val description: String,
-    val urgency: Urgency,
-    val deadline: LocalDate,
-    val subtasks: List<Subtask>
+    var title: String,
+    var description: String,
+    var urgency: Urgency,
+    var deadline: LocalDate,
+    var subtasks: List<Subtask>
 ) {
     val donePercentage: Float get() = subtasks.count { it.isDone }.toFloat() / subtasks.size
     val id: String

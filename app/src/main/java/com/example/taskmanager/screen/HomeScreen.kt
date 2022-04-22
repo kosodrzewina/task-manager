@@ -5,19 +5,35 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import com.example.taskmanager.EmptyView
-import com.example.taskmanager.TaskList
-import com.example.taskmanager.Tasks
+import com.example.taskmanager.*
 import com.example.taskmanager.navigation.Screen
+import com.google.gson.GsonBuilder
+import java.time.LocalDate
 
 @Composable
 fun HomeScreen(navController: NavController) {
+    val gson =
+        GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter())
+            .create()
+
     Scaffold(
         topBar = { TopAppBar(title = { Text(text = "Task Manager") }) },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navController.navigate(route = Screen.CreateTask.route)
+                    navController.navigate(
+                        route = Screen.CreateOrEditTask.routeWithArgs(
+                            gson.toJson(
+                                Task(
+                                    title = "",
+                                    description = "",
+                                    urgency = Urgency.LOW,
+                                    deadline = LocalDate.now(),
+                                    subtasks = listOf()
+                                )
+                            )
+                        )
+                    )
                 },
                 content = {
                     Icon(Icons.Default.Add, null)

@@ -36,25 +36,25 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 @Composable
-fun CreateTaskScreen(navController: NavController) {
+fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
     val scrollState = rememberScrollState()
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
 
     var urgencyValue by remember {
-        mutableStateOf(Urgency.LOW)
+        mutableStateOf(task.urgency)
     }
     var titleValue by remember {
-        mutableStateOf("")
+        mutableStateOf(task.title)
     }
     var descriptionValue by remember {
-        mutableStateOf("")
+        mutableStateOf(task.description)
     }
     val subtasks by remember {
-        mutableStateOf(mutableListOf<String>())
+        mutableStateOf(task.subtasks.toMutableList())
     }
     var deadlineValue by remember {
-        mutableStateOf(LocalDate.now())
+        mutableStateOf(task.deadline)
     }
 
     var subtaskValue by remember {
@@ -78,7 +78,7 @@ fun CreateTaskScreen(navController: NavController) {
         scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
-                title = { Text(text = "Create New Task") },
+                title = { Text(text = "Task Details") },
                 backgroundColor = Color.White,
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -120,15 +120,27 @@ fun CreateTaskScreen(navController: NavController) {
                                 }
                             }
                             else -> {
-                                Tasks.tasks.add(
-                                    Task(
-                                        title = titleValue,
-                                        description = descriptionValue,
-                                        urgency = urgencyValue,
-                                        deadline = deadlineValue,
-                                        subtasks = subtasks.map { Subtask(it, false) }
-                                    )
-                                )
+                                if (Tasks.tasks.any { it.id == task.id }) {
+                                    Tasks.tasks.first { it.id == task.id }.apply {
+                                        title = titleValue
+                                        description = descriptionValue
+                                        urgency = urgencyValue
+                                        deadline = deadlineValue
+                                        this.subtasks = subtasks
+                                    }
+                                    navController.popBackStack()
+                                } else {
+                                    task.apply {
+                                        title = titleValue
+                                        description = descriptionValue
+                                        urgency = urgencyValue
+                                        deadline = deadlineValue
+                                        this.subtasks = subtasks
+
+                                        Tasks.tasks.add(this)
+                                    }
+                                }
+
                                 navController.popBackStack()
                             }
                         }
@@ -255,7 +267,7 @@ fun CreateTaskScreen(navController: NavController) {
             ) {
                 subtasks.forEach {
                     TextField(
-                        value = it,
+                        value = it.name,
                         onValueChange = {},
                         enabled = false,
                         modifier = Modifier.fillMaxWidth()
@@ -270,7 +282,7 @@ fun CreateTaskScreen(navController: NavController) {
                         .fillMaxWidth()
                         .onKeyEvent {
                             if (it.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_ENTER) {
-                                subtasks.add(subtaskValue.trim())
+                                subtasks.add(Subtask(subtaskValue.trim(), false))
                                 subtaskValue = ""
                                 true
                             }
@@ -280,7 +292,7 @@ fun CreateTaskScreen(navController: NavController) {
                 )
                 TextButton(
                     onClick = {
-                        subtasks.add(subtaskValue.trim())
+                        subtasks.add(Subtask(subtaskValue.trim(), false))
                         subtaskValue = ""
                         scope.launch {
                             scrollState.animateScrollTo(value = Int.MAX_VALUE)

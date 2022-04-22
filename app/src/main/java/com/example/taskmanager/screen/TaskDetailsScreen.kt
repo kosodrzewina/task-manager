@@ -23,7 +23,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.taskmanager.*
 import com.example.taskmanager.R
+import com.example.taskmanager.navigation.Screen
+import com.google.gson.GsonBuilder
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 @Composable
 fun TaskDetailsScreen(navController: NavController, task: Task, taskId: String) {
@@ -48,6 +51,9 @@ fun TaskDetailsScreen(navController: NavController, task: Task, taskId: String) 
             addAll(task.subtasks.map { it.isDone })
         }
     }
+
+    val gson =
+        GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter()).create()
 
     if (isOpenDialog) {
         RemoveTaskAlertDialog(
@@ -81,7 +87,11 @@ fun TaskDetailsScreen(navController: NavController, task: Task, taskId: String) 
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {
+                        navController.navigate(
+                            Screen.CreateOrEditTask.routeWithArgs(gson.toJson(task))
+                        )
+                    }) {
                         Icon(imageVector = Icons.Default.Edit, contentDescription = null)
                     }
                     IconButton(onClick = { isOpenDialog = true }) {
