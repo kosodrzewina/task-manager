@@ -29,10 +29,13 @@ fun TaskListItem(task: Task, modifier: Modifier = Modifier) {
         Urgency.MEDIUM -> colorResource(id = R.color.urgency_medium)
         Urgency.HIGH -> colorResource(id = R.color.urgency_high)
     }
+    val backgroundColor =
+        if (task.donePercentage == 1f) colorResource(id = R.color.light_green) else Color.White
 
     Card(
         shape = RoundedCornerShape(16.dp),
-        elevation = 8.dp
+        elevation = 8.dp,
+        backgroundColor = backgroundColor
     ) {
         Box(modifier = modifier) {
             Row(modifier = Modifier.height(IntrinsicSize.Min)) {
