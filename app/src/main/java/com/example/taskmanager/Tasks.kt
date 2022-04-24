@@ -1,9 +1,10 @@
 package com.example.taskmanager
 
+import androidx.compose.runtime.mutableStateListOf
 import java.time.LocalDate
 
 object Tasks {
-    val tasks = mutableListOf<Task>()
+    val tasks = mutableStateListOf<Task>()
 
     init {
         tasks.addAll(
