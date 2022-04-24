@@ -1,74 +1,33 @@
 package com.example.taskmanager
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import com.example.taskmanager.navigation.Screen
-import com.google.gson.GsonBuilder
-import kotlinx.coroutines.launch
-import java.time.LocalDate
 
 private val Float.percentage get() = (this * 100).toInt().toString() + "%"
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TaskListItem(navController: NavController, scaffoldState: ScaffoldState, task: Task) {
+fun TaskListItem(task: Task, modifier: Modifier = Modifier) {
     val urgencyColor = when (task.urgency) {
         Urgency.LOW -> colorResource(id = R.color.urgency_low)
         Urgency.MEDIUM -> colorResource(id = R.color.urgency_medium)
         Urgency.HIGH -> colorResource(id = R.color.urgency_high)
     }
 
-    val scope = rememberCoroutineScope()
-    var isDialogOpen by remember {
-        mutableStateOf(false)
-    }
-
-    val gson =
-        GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter()).create()
-
-    if (isDialogOpen) {
-        RemoveTaskAlertDialog(
-            onDismissRequest = { isDialogOpen = false },
-            onConfirmClick = {
-                Tasks.tasks.remove(task)
-                scope.launch {
-                    scaffoldState.snackbarHostState.showSnackbar(
-                        message = "Task has been successfully removed"
-                    )
-                }
-                isDialogOpen = false
-            },
-            onDismissClick = { isDialogOpen = false })
-    }
-
     Card(
         shape = RoundedCornerShape(16.dp),
         elevation = 8.dp
     ) {
-        Box(modifier = Modifier.combinedClickable(
-            onClick = {
-                navController.navigate(
-                    Screen.TaskDetailsScreen.routeWithArgs(gson.toJson(task))
-                )
-            },
-            onLongClick = {
-                isDialogOpen = true
-            }
-        )) {
+        Box(modifier = modifier) {
             Row {
                 Box(
                     modifier = Modifier
