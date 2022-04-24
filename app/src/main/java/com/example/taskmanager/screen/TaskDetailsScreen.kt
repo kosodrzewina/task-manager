@@ -12,7 +12,6 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -26,6 +25,7 @@ import com.example.taskmanager.R
 import com.example.taskmanager.composable.EmptyView
 import com.example.taskmanager.composable.RemoveTaskAlertDialog
 import com.example.taskmanager.navigation.Screen
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -41,6 +41,8 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
     val scrollState = rememberScrollState()
+    val systemUiController = rememberSystemUiController()
+
     var isDialogOpen by remember {
         mutableStateOf(false)
     }
@@ -56,6 +58,10 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
 
     val gson =
         GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter()).create()
+
+    SideEffect {
+        systemUiController.setSystemBarsColor(color = urgencyColor)
+    }
 
     if (isDialogOpen) {
         RemoveTaskAlertDialog(
@@ -79,7 +85,7 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
         topBar = {
             TopAppBar(
                 title = { Text(text = task.title) },
-                backgroundColor = Color.White,
+                backgroundColor = urgencyColor,
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(

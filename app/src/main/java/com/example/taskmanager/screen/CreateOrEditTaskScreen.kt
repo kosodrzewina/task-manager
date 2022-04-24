@@ -29,6 +29,7 @@ import com.example.taskmanager.Subtask
 import com.example.taskmanager.Task
 import com.example.taskmanager.Tasks
 import com.example.taskmanager.Urgency
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
@@ -40,6 +41,7 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
     val scrollState = rememberScrollState()
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+    val systemUiController = rememberSystemUiController()
 
     var urgencyValue by remember {
         mutableStateOf(task.urgency)
@@ -62,6 +64,10 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
     }
     val dialogState = rememberMaterialDialogState()
 
+    SideEffect {
+        systemUiController.setSystemBarsColor(color = Color.LightGray)
+    }
+
     MaterialDialog(
         dialogState = dialogState,
         buttons = {
@@ -79,7 +85,7 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
         topBar = {
             TopAppBar(
                 title = { Text(text = "Task Details") },
-                backgroundColor = Color.White,
+                backgroundColor = Color.LightGray,
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
