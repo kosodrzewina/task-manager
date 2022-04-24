@@ -27,6 +27,7 @@ fun HomeScreen(navController: NavController) {
     val systemUiController = rememberSystemUiController()
 
     val systemBarsColor = colorResource(id = R.color.purple_500)
+    val fabColor = colorResource(id = R.color.purple_700)
     val gson =
         GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter())
             .create()
@@ -60,7 +61,7 @@ fun HomeScreen(navController: NavController) {
         },
         scaffoldState = scaffoldState,
         floatingActionButton = {
-            FloatingActionButton(
+            ExtendedFloatingActionButton(
                 onClick = {
                     navController.navigate(
                         route = Screen.CreateOrEditTask.routeWithArgs(
@@ -76,9 +77,10 @@ fun HomeScreen(navController: NavController) {
                         )
                     )
                 },
-                content = {
-                    Icon(Icons.Default.Add, null)
-                }
+                icon = { Icon(Icons.Default.Add, null) },
+                text = { Text(text = "New Task") },
+                backgroundColor = fabColor,
+                contentColor = Color.White
             )
         }
     ) {
