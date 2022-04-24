@@ -1,4 +1,4 @@
-package com.example.taskmanager
+package com.example.taskmanager.composable
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -11,6 +11,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.taskmanager.LocalDateTypeAdapter
+import com.example.taskmanager.Task
+import com.example.taskmanager.Tasks
 import com.example.taskmanager.navigation.Screen
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.launch

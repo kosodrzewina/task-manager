@@ -1,4 +1,4 @@
-package com.example.taskmanager
+package com.example.taskmanager.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,6 +12,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.taskmanager.R
+import com.example.taskmanager.Task
+import com.example.taskmanager.Urgency
 
 private val Float.percentage get() = (this * 100).toInt().toString() + "%"
 

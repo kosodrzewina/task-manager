@@ -1,4 +1,4 @@
-package com.example.taskmanager
+package com.example.taskmanager.composable
 
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
