@@ -33,6 +33,13 @@ object Tasks {
                     urgency = Urgency.MEDIUM,
                     deadline = LocalDate.of(2022, 7, 5),
                     subtasks = listOf(Subtask("subtask1", false))
+                ),
+                Task(
+                    title = "A regular task",
+                    description = "This is a regular task",
+                    urgency = Urgency.MEDIUM,
+                    deadline = LocalDate.of(2021, 7, 5),
+                    subtasks = listOf(Subtask("subtask1", false))
                 )
             )
         )

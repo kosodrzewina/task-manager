@@ -48,7 +48,12 @@ fun HomeScreen(navController: NavController) {
             TaskList(
                 navController = navController,
                 scaffoldState = scaffoldState,
-                tasks = Tasks.tasks.sortedBy { it.deadline })
+                tasks = Tasks.tasks.filter {
+                    it.deadline >= LocalDate.now()
+                }.sortedBy {
+                    it.deadline
+                }
+            )
         }
     }
 }
