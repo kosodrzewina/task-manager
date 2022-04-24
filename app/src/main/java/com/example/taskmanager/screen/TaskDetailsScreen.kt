@@ -167,7 +167,10 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
                                 checkStates[index] = state
                                 Tasks.tasks.first { it.id == task.id }.subtasks[index].isDone =
                                     state
-                            }
+                            },
+                            colors = CheckboxDefaults.colors(
+                                checkedColor = urgencyColor
+                            )
                         )
                         Text(
                             text = subtask.name,
