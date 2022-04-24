@@ -42,13 +42,20 @@ object Tasks {
                     description = "This is a regular task",
                     urgency = Urgency.MEDIUM,
                     deadline = LocalDate.of(2022, 4, 24),
-                    subtasks = listOf(Subtask("subtask1", false))
+                    subtasks = listOf(Subtask("subtask1", true))
                 ),
                 Task(
                     title = "A regular task",
                     description = "This is a regular task",
                     urgency = Urgency.MEDIUM,
                     deadline = LocalDate.of(2021, 7, 5),
+                    subtasks = listOf(Subtask("subtask1", false))
+                ),
+                Task(
+                    title = "This is a veeeeeery loooooong title",
+                    description = "This is an even loooooooooonger description to the task that has a veeeeeeeeeeeeeeeery long title. It is really long!",
+                    urgency = Urgency.MEDIUM,
+                    deadline = LocalDate.of(2023, 7, 5),
                     subtasks = listOf(Subtask("subtask1", false))
                 )
             )

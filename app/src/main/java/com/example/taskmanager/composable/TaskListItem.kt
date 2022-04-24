@@ -42,7 +42,7 @@ fun TaskListItem(task: Task, modifier: Modifier = Modifier) {
                         .fillMaxHeight()
                         .background(urgencyColor)
                 )
-                Column {
+                Column(modifier = Modifier.weight(1f)) {
                     Row {
                         Bubble(
                             text = task.deadline.toString(),
@@ -70,26 +70,29 @@ fun TaskListItem(task: Task, modifier: Modifier = Modifier) {
                         textAlign = TextAlign.Left,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.padding(
-                            start = 16.dp,
-                            top = 4.dp,
-                            end = 16.dp,
-                            bottom = 8.dp
-                        )
+                        modifier = Modifier
+                            .padding(
+                                start = 16.dp,
+                                top = 4.dp,
+                                end = 16.dp,
+                                bottom = 8.dp
+                            )
                     )
                     Text(
                         text = task.description,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Thin,
                         textAlign = TextAlign.Left,
-                        maxLines = 2,
+                        maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, end = 16.dp)
                     )
                 }
-                Spacer(modifier = Modifier.weight(1f))
                 PieChart(
-                    donePercentage = task.donePercentage, modifier = Modifier.padding(16.dp)
+                    donePercentage = task.donePercentage,
+                    modifier = Modifier
+                        .padding(all = 16.dp)
+                        .size(80.dp)
                 )
             }
         }
