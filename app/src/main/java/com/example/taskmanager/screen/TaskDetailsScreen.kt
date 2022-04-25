@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -115,7 +116,7 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
             Column(modifier = Modifier.verticalScroll(scrollState)) {
                 Row {
                     Text(
-                        text = "Urgency:",
+                        text = "${stringResource(id = R.string.urgency)}:",
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(all = 16.dp)
@@ -130,7 +131,7 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
                 }
                 Row {
                     Text(
-                        text = "Deadline:",
+                        text = "${stringResource(id = R.string.deadline)}:",
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(all = 16.dp)
@@ -143,7 +144,7 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
                     )
                 }
                 Text(
-                    text = "Description:",
+                    text = "${stringResource(id = R.string.description)}:",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(all = 16.dp)
@@ -154,7 +155,7 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
                     modifier = Modifier.padding(start = 32.dp, end = 16.dp, bottom = 16.dp)
                 )
                 Text(
-                    text = "To Do:",
+                    text = "${stringResource(id = R.string.to_do)}:",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(all = 16.dp)

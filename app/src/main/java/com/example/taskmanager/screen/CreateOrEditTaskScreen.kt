@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,10 +29,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.taskmanager.Subtask
-import com.example.taskmanager.Task
-import com.example.taskmanager.Tasks
-import com.example.taskmanager.Urgency
+import com.example.taskmanager.*
+import com.example.taskmanager.R
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
@@ -154,7 +153,7 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
                             }
                         }
                     }) {
-                        Text(text = "SAVE")
+                        Text(text = stringResource(id = com.example.taskmanager.R.string.save))
                     }
                 }
             )
@@ -184,7 +183,7 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
                     readOnly = true,
                     label = {
                         Text(
-                            text = "Urgency"
+                            text = stringResource(id = R.string.urgency)
                         )
                     },
                     onValueChange = {
@@ -222,7 +221,7 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
             }
             Row(modifier = Modifier.padding(top = 16.dp)) {
                 Text(
-                    text = "Deadline:",
+                    text = "${stringResource(id = R.string.deadline)}:",
                     fontWeight = FontWeight.Bold,
                     fontSize = 24.sp,
                     modifier = Modifier.padding(end = 16.dp)
@@ -242,7 +241,7 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
                     .fillMaxWidth(),
                 label = {
                     Text(
-                        text = "Title"
+                        text = stringResource(id = R.string.title)
                     )
                 },
                 onValueChange = {
@@ -256,7 +255,7 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
                     .fillMaxWidth(),
                 label = {
                     Text(
-                        text = "Description"
+                        text = stringResource(id = R.string.description)
                     )
                 },
                 onValueChange = {
@@ -264,7 +263,7 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
                 }
             )
             Text(
-                text = "Subtasks",
+                text = stringResource(id = R.string.subtasks),
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp,
                 modifier = Modifier.padding(all = 16.dp)
@@ -324,7 +323,7 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
                     },
                     modifier = Modifier.padding(top = 16.dp)
                 ) {
-                    Text(text = "ADD")
+                    Text(text = stringResource(id = R.string.add))
                 }
             }
         }

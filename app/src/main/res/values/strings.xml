@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Task Manager</string>
+    <string name="new_task">New Task</string>
+    <string name="save">SAVE</string>
+    <string name="urgency">Urgency</string>
+    <string name="deadline">Deadline</string>
+    <string name="description">Description</string>
+    <string name="to_do">To Do</string>
+    <string name="title">Title</string>
+    <string name="subtasks">Subtasks</string>
+    <string name="add">ADD</string>
 </resources>

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Menadżer Zadań</string>
+    <string name="new_task">Nowe Zadanie</string>
+    <string name="save">ZAPISZ</string>
+    <string name="deadline">Deadline</string>
+    <string name="urgency">Pilność</string>
+    <string name="description">Opis</string>
+    <string name="to_do">Do Zrobienia</string>
+    <string name="title">Tytuł</string>
+    <string name="subtasks">Podzadania</string>
+    <string name="add">DODAJ</string>
+</resources>

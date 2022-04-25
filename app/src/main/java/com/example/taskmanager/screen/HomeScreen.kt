@@ -9,6 +9,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.taskmanager.*
@@ -39,7 +40,7 @@ fun HomeScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Task Manager") },
+                title = { Text(text = stringResource(id = R.string.app_name)) },
                 actions = {
                     ToDoBadge(
                         number = Tasks.getTasksUntilEndOfWeek(Urgency.LOW).size,
@@ -78,7 +79,7 @@ fun HomeScreen(navController: NavController) {
                     )
                 },
                 icon = { Icon(Icons.Default.Add, null) },
-                text = { Text(text = "New Task") },
+                text = { Text(text = stringResource(id = R.string.new_task)) },
                 backgroundColor = fabColor,
                 contentColor = Color.White
             )
