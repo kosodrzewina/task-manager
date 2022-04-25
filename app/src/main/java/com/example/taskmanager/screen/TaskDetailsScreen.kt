@@ -12,7 +12,6 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -33,12 +32,6 @@ import java.time.LocalDate
 
 @Composable
 fun TaskDetailsScreen(navController: NavController, task: Task) {
-    val urgencyColor = when (task.urgency) {
-        Urgency.LOW -> colorResource(id = R.color.urgency_low)
-        Urgency.MEDIUM -> colorResource(id = R.color.urgency_medium)
-        Urgency.HIGH -> colorResource(id = R.color.urgency_high)
-    }
-
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
     val scrollState = rememberScrollState()
@@ -57,6 +50,8 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
         }
     }
 
+    val urgencyColor = UrgencyHelper.getColor(task.urgency)
+    val urgencyName = UrgencyHelper.getName(task.urgency)
     val gson =
         GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter()).create()
 
@@ -122,7 +117,7 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
                         modifier = Modifier.padding(all = 16.dp)
                     )
                     Text(
-                        text = task.urgency.toString(),
+                        text = urgencyName,
                         fontSize = 24.sp,
                         fontStyle = FontStyle.Italic,
                         color = urgencyColor,

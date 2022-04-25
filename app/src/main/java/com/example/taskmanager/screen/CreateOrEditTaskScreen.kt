@@ -176,15 +176,13 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
 
             Column(modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp)) {
                 OutlinedTextField(
-                    value = urgencyValue.toString(),
+                    value = UrgencyHelper.getName(urgencyValue),
                     modifier = Modifier.onGloballyPositioned {
                         urgencyTextFieldSize = it.size.toSize()
                     },
                     readOnly = true,
                     label = {
-                        Text(
-                            text = stringResource(id = R.string.urgency)
-                        )
+                        Text(text = stringResource(id = R.string.urgency))
                     },
                     onValueChange = {
                         urgencyValue = when (it) {
@@ -214,7 +212,7 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
                                 expanded = false
                             }
                         ) {
-                            Text(text = it.toString())
+                            Text(text = UrgencyHelper.getName(it))
                         }
                     }
                 }

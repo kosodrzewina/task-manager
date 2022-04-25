@@ -9,4 +9,9 @@
     <string name="title">Tytuł</string>
     <string name="subtasks">Podzadania</string>
     <string name="add">DODAJ</string>
+
+    <string name="urgency_low">Niska</string>
+    <string name="urgency_medium">Średnia</string>
+    <string name="urgency_high">Wysoka</string>
+    <string name="task_details">Szczegóły Zadania</string>
 </resources>
