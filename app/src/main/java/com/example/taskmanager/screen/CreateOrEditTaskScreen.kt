@@ -9,6 +9,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
@@ -21,10 +22,12 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.taskmanager.Subtask
 import com.example.taskmanager.Task
 import com.example.taskmanager.Tasks
@@ -53,7 +56,7 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
         mutableStateOf(task.description)
     }
     val subtasks by remember {
-        mutableStateOf(task.subtasks.toMutableList())
+        mutableStateOf(task.subtasks.toMutableStateList())
     }
     var deadlineValue by remember {
         mutableStateOf(task.deadline)
@@ -272,12 +275,27 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
                     .padding(start = 16.dp, end = 16.dp)
             ) {
                 subtasks.forEach {
-                    TextField(
-                        value = it.name,
-                        onValueChange = {},
-                        enabled = false,
-                        modifier = Modifier.fillMaxWidth()
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        TextField(
+                            value = it.name,
+                            onValueChange = {},
+                            enabled = false,
+                            modifier = Modifier.weight(1f)
+                        )
+                        IconButton(
+                            onClick = { subtasks.remove(it) },
+                            modifier = Modifier.padding(start = 8.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = null,
+                                tint = Color.Red
+                            )
+                        }
+                    }
                 }
                 TextField(
                     value = subtaskValue,
@@ -311,4 +329,10 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun CreateOrEditTaskScreenPreview() {
+    CreateOrEditTaskScreen(navController = rememberNavController(), task = Tasks.tasks[0])
 }
