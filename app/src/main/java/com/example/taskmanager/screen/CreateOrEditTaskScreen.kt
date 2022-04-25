@@ -313,8 +313,11 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
                 )
                 TextButton(
                     onClick = {
-                        subtasks.add(Subtask(subtaskValue.trim(), false))
-                        subtaskValue = ""
+                        if (subtaskValue.trim().isNotEmpty()) {
+                            subtasks.add(Subtask(subtaskValue.trim(), false))
+                            subtaskValue = ""
+                        }
+
                         scope.launch {
                             scrollState.animateScrollTo(value = Int.MAX_VALUE)
                         }
