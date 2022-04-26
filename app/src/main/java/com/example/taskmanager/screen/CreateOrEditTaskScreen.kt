@@ -14,12 +14,14 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -38,12 +40,14 @@ import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
     val scrollState = rememberScrollState()
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val systemUiController = rememberSystemUiController()
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     var urgencyValue by remember {
         mutableStateOf(task.urgency)
@@ -149,6 +153,7 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
                                     }
                                 }
 
+                                keyboardController?.hide()
                                 navController.popBackStack()
                             }
                         }
