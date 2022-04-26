@@ -14,4 +14,9 @@
     <string name="urgency_medium">Medium</string>
     <string name="urgency_high">High</string>
     <string name="task_details">Task Details</string>
+
+    <string name="remove_task_title">Are you sure?</string>
+    <string name="remove_task_content">
+        If you proceed, you will permanently delete this task.
+    </string>
 </resources>

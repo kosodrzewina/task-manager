@@ -4,7 +4,9 @@ import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import com.example.taskmanager.R
 
 @Composable
 fun RemoveTaskAlertDialog(
@@ -14,9 +16,14 @@ fun RemoveTaskAlertDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismissRequest,
-        title = { Text(text = "Are you sure?", fontWeight = FontWeight.Bold) },
+        title = {
+            Text(
+                text = stringResource(id = R.string.remove_task_title),
+                fontWeight = FontWeight.Bold
+            )
+        },
         text = {
-            Text(text = "If you proceed, you will permanently delete this task.")
+            Text(text = stringResource(id = R.string.remove_task_content))
         },
         confirmButton = {
             TextButton(onClick = onConfirmClick) {
