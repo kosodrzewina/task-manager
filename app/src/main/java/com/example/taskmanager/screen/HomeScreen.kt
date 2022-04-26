@@ -1,5 +1,7 @@
 package com.example.taskmanager.screen
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -91,8 +93,13 @@ fun HomeScreen(navController: NavController) {
             TaskList(
                 navController = navController,
                 scaffoldState = scaffoldState,
-                tasks = Tasks.tasks.filter {
-                    it.deadline >= LocalDate.now()
+                tasksToDo = Tasks.tasks.filter {
+                    it.donePercentage != 1f && it.deadline >= LocalDate.now()
+                }.sortedBy {
+                    it.deadline
+                },
+                tasksDone = Tasks.tasks.filter {
+                    it.donePercentage == 1f
                 }.sortedBy {
                     it.deadline
                 }
