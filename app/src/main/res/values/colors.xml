@@ -10,7 +10,9 @@
     <color name="urgency_low">#4D96FF</color>
     <color name="urgency_medium">#FFD93D</color>
     <color name="urgency_high">#FF6B6B</color>
-    <color name="chart_background">#EDE6DB</color>
+    <color name="chart_background">#E0D8CA</color>
     <color name="chart_done">#6BCB77</color>
     <color name="light_green">#DAEBDC</color>
+    <color name="background_color">#FDFBF2</color>
+    <color name="card_color">#F9F4D9</color>
 </resources>

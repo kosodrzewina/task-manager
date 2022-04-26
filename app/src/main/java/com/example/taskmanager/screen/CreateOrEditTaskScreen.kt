@@ -22,6 +22,7 @@ import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -48,6 +49,8 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
     val scope = rememberCoroutineScope()
     val systemUiController = rememberSystemUiController()
     val keyboardController = LocalSoftwareKeyboardController.current
+    val backgroundColor = colorResource(id = R.color.background_color)
+    val cardColor = colorResource(id = R.color.card_color)
 
     var urgencyValue by remember {
         mutableStateOf(task.urgency)
@@ -71,7 +74,7 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
     val dialogState = rememberMaterialDialogState()
 
     SideEffect {
-        systemUiController.setSystemBarsColor(color = Color.LightGray)
+        systemUiController.setStatusBarColor(color = cardColor)
     }
 
     MaterialDialog(
@@ -88,10 +91,11 @@ fun CreateOrEditTaskScreen(navController: NavController, task: Task) {
 
     Scaffold(
         scaffoldState = scaffoldState,
+        backgroundColor = backgroundColor,
         topBar = {
             TopAppBar(
                 title = { Text(text = "Task Details") },
-                backgroundColor = Color.LightGray,
+                backgroundColor = cardColor,
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(

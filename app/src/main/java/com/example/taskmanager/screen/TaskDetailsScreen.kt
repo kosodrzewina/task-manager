@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -36,6 +37,7 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
     val scaffoldState = rememberScaffoldState()
     val scrollState = rememberScrollState()
     val systemUiController = rememberSystemUiController()
+    val backgroundColor = colorResource(id = R.color.background_color)
 
     var isDialogOpen by remember {
         mutableStateOf(false)
@@ -56,7 +58,7 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
         GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter()).create()
 
     SideEffect {
-        systemUiController.setSystemBarsColor(color = urgencyColor)
+        systemUiController.setStatusBarColor(color = urgencyColor)
     }
 
     if (isDialogOpen) {
@@ -78,6 +80,7 @@ fun TaskDetailsScreen(navController: NavController, task: Task) {
 
     Scaffold(
         scaffoldState = scaffoldState,
+        backgroundColor = backgroundColor,
         topBar = {
             TopAppBar(
                 title = { Text(text = task.title) },

@@ -30,7 +30,8 @@ fun TaskListItem(task: Task, modifier: Modifier = Modifier) {
         Urgency.HIGH -> colorResource(id = R.color.urgency_high)
     }
     val backgroundColor =
-        if (task.donePercentage == 1f) colorResource(id = R.color.light_green) else Color.White
+        if (task.donePercentage == 1f) colorResource(id = R.color.light_green)
+        else colorResource(id = R.color.card_color)
 
     Card(
         shape = RoundedCornerShape(16.dp),

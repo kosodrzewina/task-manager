@@ -1,7 +1,5 @@
 package com.example.taskmanager.screen
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -28,21 +26,23 @@ import java.time.LocalDate
 fun HomeScreen(navController: NavController) {
     val scaffoldState = rememberScaffoldState()
     val systemUiController = rememberSystemUiController()
+    val backgroundColor = colorResource(id = R.color.background_color)
 
     val systemBarsColor = colorResource(id = R.color.purple_500)
-    val fabColor = colorResource(id = R.color.purple_700)
     val gson =
         GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter())
             .create()
 
     SideEffect {
-        systemUiController.setSystemBarsColor(color = systemBarsColor)
+        systemUiController.setSystemBarsColor(color = backgroundColor)
     }
 
     Scaffold(
+        backgroundColor = colorResource(id = R.color.background_color),
         topBar = {
             TopAppBar(
                 title = { Text(text = stringResource(id = R.string.app_name)) },
+                backgroundColor = backgroundColor,
                 actions = {
                     ToDoBadge(
                         number = Tasks.getTasksUntilEndOfWeek(Urgency.LOW).size,
@@ -82,7 +82,6 @@ fun HomeScreen(navController: NavController) {
                 },
                 icon = { Icon(Icons.Default.Add, null) },
                 text = { Text(text = stringResource(id = R.string.new_task)) },
-                backgroundColor = fabColor,
                 contentColor = Color.White
             )
         }
